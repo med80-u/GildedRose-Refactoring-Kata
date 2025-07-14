@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-
+from item import Item
 from gilded_rose import *
 
 
