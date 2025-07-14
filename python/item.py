@@ -4,8 +4,8 @@ class Item:
 
     def __init__(self, name, sell_in, quality):
         self.name = name
-        self._sell_in = sell_in
-        self._quality = quality
+        self.sell_in = sell_in     
+        self.quality = quality     
 
     @property
     def sell_in(self):
@@ -25,8 +25,17 @@ class Item:
     def quality(self, value):
         if not isinstance(value, int):
             raise TypeError("quality must be an integer.")
-        if not (self.MIN_QUALITY <= value <= self.MAX_QUALITY):
-            raise ValueError(f"quality must be between {self.MIN_QUALITY} and {self.MAX_QUALITY}.")
+        
+        #Règle spéciale pour Sulfuras : qualité doit être **exactement 80**
+        if self.name == "Sulfuras, Hand of Ragnaros":
+            if value != 80:
+                raise ValueError("Sulfuras must have a quality of exactly 80.")
+        else:
+            if not (self.MIN_QUALITY <= value <= self.MAX_QUALITY):
+                raise ValueError(
+                    f"quality must be between {self.MIN_QUALITY} and {self.MAX_QUALITY}."
+                )
+        
         self._quality = value
 
     def __repr__(self):

@@ -48,6 +48,16 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(items[0].quality, 80)  # qualité fixe
         self.assertEqual(items[0].sell_in, 0)   # sell_in fixe aussi
 
+    # Test : Vérifie qu'une exception est levée si on crée un objet Sulfuras avec une qualité ≠ 80
+    def test_sulfuras_with_invalid_quality(self):
+        # On attend une exception de type ValueError lorsque la qualité n'est pas 80
+        with self.assertRaises(ValueError) as context:
+            # Création d'un objet Sulfuras avec une qualité invalide (90 au lieu de 80)
+            Item("Sulfuras, Hand of Ragnaros", 0, 90)
+        
+        # Vérifie que le message de l'exception contient bien l'explication attendue
+        self.assertIn("Sulfuras must have a quality of exactly 80", str(context.exception))
+
     # Test 7 : Backstage pass augmente de +1 quand il reste > 10 jours
     def test_backstage_pass_increase(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 15, 20)]
